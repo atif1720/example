@@ -56,8 +56,8 @@ def run_selenium(logpath):
         time.sleep(10)
         # Wait for the element to be rendered:
         element = driver.find_element(By.ID, "user_id")
-        element.text
-    return element.text
+        element_1 = element.text
+    return element_1 
 
 if __name__ == "__main__":
     logpath=get_logpath()
