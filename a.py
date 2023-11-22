@@ -7,6 +7,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
+from PIL import Image
+from io import BytesIO
 import time
 
 @st.cache_resource(show_spinner=False)
@@ -54,6 +56,10 @@ def run_selenium(logpath):
         url = "https://bawuat1.dfveriflow.com/ProcessPortal/login.jsp"
         driver.get(url)
         time.sleep(10)
+        screenshot = driver.get_screenshot_as_png()
+        time.sleep(2)
+        st.image(Image.open(BytesIO(screenshot)), caption="Screenshot", use_column_width=True)
+        time.sleep(3)
         # Wait for the element to be rendered:
         element = driver.find_element(By.ID, "user_id")
         element_1 = element.text
