@@ -51,27 +51,33 @@ def show_selenium_log(logpath):
         st.warning('No log file found!')
 
 def run_selenium(logpath):
-    name = str()
+    screenshot_path = "screenshot.png"  # Temporary path to save the screenshot
+
     with webdriver.Chrome(options=get_webdriver_options(), service=get_webdriver_service(logpath=logpath)) as driver:
-        url = "https://xyz.com/login.jsp"
+        url = "xyz.com"
         driver.get(url)
         time.sleep(10)
+        
+        # Capture screenshot and save it
         screenshot = driver.get_screenshot_as_png()
-        time.sleep(1)
+        with open(screenshot_path, "wb") as file:
+            file.write(screenshot)
 
-        # Encode screenshot as Base64 string
-        screenshot_base64 = base64.b64encode(screenshot).decode("utf-8")
-
-        # Display the screenshot using st.image
+        # Display the screenshot on Streamlit
         st.image(Image.open(BytesIO(screenshot)), caption="Screenshot", use_column_width=True)
 
-        # Create a download button using st.download_button
-        st.download_button(label="Download Screenshot", data=(screenshot_base64, "image/png"), file_name="screenshot.png")
+        # Provide a download link/button for the screenshot
+        st.markdown(
+            f"[:camera: Download Screenshot]({screenshot_path})",
+            unsafe_allow_html=True
+        )
 
         # Wait for the element to be rendered:
         element = driver.find_element(By.ID, "user_id")
         element_1 = element.text
+
     return element_1
+
 
 if __name__ == "__main__":
     logpath=get_logpath()
