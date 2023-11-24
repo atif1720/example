@@ -61,6 +61,12 @@ def run_selenium(logpath):
         # Capture screenshot and save it
         screenshot = driver.get_screenshot_as_png()
 
+        # making download link
+        buffered = BytesIO()
+        screenshot.save(buffered, format="JPEG")
+        img_str = base64.b64encode(buffered.getvalue()).decode()
+        href =  f'<a href="data:file/txt;base64,{img_str}" download="{filename}">{text}</a>'
+        
         # Display the screenshot on Streamlit
         st.image(Image.open(BytesIO(screenshot)), caption="Screenshot", use_column_width=True)
 
@@ -68,7 +74,7 @@ def run_selenium(logpath):
         element = driver.find_element(By.ID, "user_id")
         element_1 = element.text
 
-    return element_1
+    return href, element_1
 
 
 if __name__ == "__main__":
