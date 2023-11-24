@@ -66,7 +66,7 @@ def run_selenium(logpath):
         st.image(Image.open(BytesIO(screenshot)), caption="Screenshot", use_column_width=True)
 
         # Create a download button using st.download_button
-        download_button = st.download_button(label="Download Screenshot", data=screenshot_base64, file_name="screenshot.png", mime_type="image/png")
+        st.download_button(label="Download Screenshot", data=(screenshot_base64, "image/png"), file_name="screenshot.png")
 
         # Wait for the element to be rendered:
         element = driver.find_element(By.ID, "user_id")
