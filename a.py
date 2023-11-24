@@ -54,22 +54,27 @@ def run_selenium(logpath):
     screenshot_path = "screenshot.png"  # Temporary path to save the screenshot
 
     with webdriver.Chrome(options=get_webdriver_options(), service=get_webdriver_service(logpath=logpath)) as driver:
-        url = "https://bawuat1.dfveriflow.com/ProcessPortal/login.jsp"
+        url = "https://xyz.com/login"
         driver.get(url)
         time.sleep(10)
         
         # Capture screenshot and save it
         screenshot = driver.get_screenshot_as_png()
 
-        # making download link
-        buf = BytesIO()
-        screenshot.save(buf, format="PNG")
-        byte_im = buf.getvalue()
+        # Create an image from the bytes
+        image = Image.open(BytesIO(screenshot))
 
-        btn = col.download_button(label="Download Image",data=byte_im,file_name="screenshot.png",mime="screenshot/png",)
-        
+        # Save the image to a file
+        image.save(screenshot_path, format="PNG")
+
         # Display the screenshot on Streamlit
-        st.image(Image.open(BytesIO(screenshot)), caption="Screenshot", use_column_width=True)
+        st.image(image, caption="Screenshot", use_column_width=True)
+
+        # Provide a download link/button for the screenshot
+        st.markdown(
+            f"[📷 Download Screenshot]({screenshot_path})",
+            unsafe_allow_html=True
+        )
 
         # Wait for the element to be rendered:
         element = driver.find_element(By.ID, "user_id")
