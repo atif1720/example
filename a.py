@@ -54,7 +54,7 @@ def run_selenium(logpath):
     screenshot_path = "screenshot.png"  # Temporary path to save the screenshot
 
     with webdriver.Chrome(options=get_webdriver_options(), service=get_webdriver_service(logpath=logpath)) as driver:
-        url = "xyz.com"
+        url = "https://bawuat1.dfveriflow.com/ProcessPortal/login.jsp"
         driver.get(url)
         time.sleep(10)
         
