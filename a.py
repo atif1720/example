@@ -62,10 +62,11 @@ def run_selenium(logpath):
         screenshot = driver.get_screenshot_as_png()
 
         # making download link
-        buffered = BytesIO()
-        screenshot.save(buffered, format="JPEG")
-        img_str = base64.b64encode(buffered.getvalue()).decode()
-        href =  f'<a href="data:file/txt;base64,{img_str}" download="{filename}">{text}</a>'
+        buf = BytesIO()
+        screenshot.save(buf, format="JPEG")
+        byte_im = buf.getvalue()
+
+        btn = col.download_button(label="Download Image",data=byte_im,file_name="screenshot.png",mime="screenshot/jpeg",)
         
         # Display the screenshot on Streamlit
         st.image(Image.open(BytesIO(screenshot)), caption="Screenshot", use_column_width=True)
