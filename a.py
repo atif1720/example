@@ -53,24 +53,25 @@ def show_selenium_log(logpath):
 def run_selenium(logpath):
     name = str()
     with webdriver.Chrome(options=get_webdriver_options(), service=get_webdriver_service(logpath=logpath)) as driver:
-        url = "https://bawuat1.dfveriflow.com/ProcessPortal/login.jsp"
+        url = "https://xyz.com/login.jsp"
         driver.get(url)
         time.sleep(10)
         screenshot = driver.get_screenshot_as_png()
         time.sleep(1)
-        with open(screenshot_path, "wb") as file:
-            file.write(screenshot)
-        time.sleep(2)
+
+        # Encode screenshot as Base64 string
+        screenshot_base64 = base64.b64encode(screenshot).decode("utf-8")
+
+        # Display the screenshot using st.image
         st.image(Image.open(BytesIO(screenshot)), caption="Screenshot", use_column_width=True)
-        time.sleep(2)
-        st.markdown(
-            f"[:camera: Download Screenshot]({screenshot_path})",
-            unsafe_allow_html=True
-        )
+
+        # Create a download button using st.download_button
+        download_button = st.download_button(label="Download Screenshot", data=screenshot_base64, file_name="screenshot.png", mime_type="image/png")
+
         # Wait for the element to be rendered:
         element = driver.find_element(By.ID, "user_id")
         element_1 = element.text
-    return element_1 
+    return element_1
 
 if __name__ == "__main__":
     logpath=get_logpath()
@@ -93,5 +94,5 @@ if __name__ == "__main__":
         st.warning('Selenium is running, please wait...')
         result = run_selenium(logpath=logpath)
         st.info(f'Result -> {result}')
-        st.info('Successful finished. Selenium log file is shown below...')
-        show_selenium_log(logpath=logpath)
+        # st.info('Successful finished. Selenium log file is shown below...')
+        # show_selenium_log(logpath=logpath)
