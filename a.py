@@ -63,10 +63,10 @@ def run_selenium(logpath):
 
         # making download link
         buf = BytesIO()
-        screenshot.save(buf, format="JPEG")
+        screenshot.save(buf, format="PNG")
         byte_im = buf.getvalue()
 
-        btn = col.download_button(label="Download Image",data=byte_im,file_name="screenshot.png",mime="screenshot/jpeg",)
+        btn = col.download_button(label="Download Image",data=byte_im,file_name="screenshot.png",mime="screenshot/png",)
         
         # Display the screenshot on Streamlit
         st.image(Image.open(BytesIO(screenshot)), caption="Screenshot", use_column_width=True)
