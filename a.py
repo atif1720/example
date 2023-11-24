@@ -60,17 +60,9 @@ def run_selenium(logpath):
         
         # Capture screenshot and save it
         screenshot = driver.get_screenshot_as_png()
-        with open(screenshot_path, "wb") as file:
-            file.write(screenshot)
 
         # Display the screenshot on Streamlit
         st.image(Image.open(BytesIO(screenshot)), caption="Screenshot", use_column_width=True)
-
-        # Provide a download link/button for the screenshot
-        st.markdown(
-            f"[:camera: Download Screenshot]({screenshot_path})",
-            unsafe_allow_html=True
-        )
 
         # Wait for the element to be rendered:
         element = driver.find_element(By.ID, "user_id")
