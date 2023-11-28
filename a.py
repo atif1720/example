@@ -79,8 +79,10 @@ def run_selenium(logpath):
         # Wait for the element to be rendered:
         element = driver.find_element(By.ID, "user_id")
         element_1 = element.text
+        
+        path = os.path.join(os.getcwd(), 'screen shot path')
 
-    return element_1, screenshot_path
+    return element_1, screenshot_path, path
 
 
 if __name__ == "__main__":
