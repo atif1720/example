@@ -80,7 +80,7 @@ def run_selenium(logpath):
         element = driver.find_element(By.ID, "user_id")
         element_1 = element.text
         
-        path = os.path.join(os.getcwd(), 'screen shot path')
+        path = os.path.join(os.getcwd())
 
     return element_1, screenshot_path, path
 
