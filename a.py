@@ -82,7 +82,7 @@ def run_selenium(logpath):
             btn = st.download_button(
                     label="Download image",
                     data=file,
-                    file_name="flower.png",
+                    file_name="result.png",
                     mime="image/png"
                   )
 
