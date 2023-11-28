@@ -73,10 +73,18 @@ def run_selenium(logpath):
         st.image(screenshot, caption="Screenshot", use_column_width=True)
 
         # Provide a download link/button for the screenshot
-        st.markdown(
-            f"[📷 Download Screenshot]({screenshot_path})",
-            unsafe_allow_html=True
-        )
+        # st.markdown(
+        #     f"[📷 Download Screenshot]({screenshot_path})",
+        #     unsafe_allow_html=True
+        # )
+        ## new code to download image
+        with open("screenshot.png", "rb") as file:
+            btn = st.download_button(
+                    label="Download image",
+                    data=file,
+                    file_name="flower.png",
+                    mime="image/png"
+                  )
 
         # Wait for the element to be rendered:
         element = driver.find_element(By.ID, "user_id")
