@@ -62,7 +62,7 @@ def run_selenium(logpath):
         screenshot = driver.get_screenshot_as_png()
 
         # Create an image from the bytes
-         image = Image.open(BytesIO(screenshot))
+        image = Image.open(BytesIO(screenshot))
 
         # Save the image to a file
         temp_file_path = "temp_screenshot.png"
