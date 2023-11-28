@@ -62,19 +62,22 @@ def run_selenium(logpath):
         screenshot = driver.get_screenshot_as_png()
 
         # Create an image from the bytes
-        image = Image.open(BytesIO(screenshot))
+        screenshot = Image.open(BytesIO(screenshot))
 
         # Save the image to a file
-        image.save(screenshot_path, format="PNG")
+        temp_file_path = "temp_screenshot.png"
+        with open(temp_file_path, "wb") as file:
+            file.write(screenshot)
 
         # Display the screenshot on Streamlit
-        st.image(image, caption="Screenshot", use_column_width=True)
+        st.image(screenshot, caption="Screenshot", use_column_width=True)
 
         # Provide a download link/button for the screenshot
-        st.markdown(
-            f"[📷 Download Screenshot]({screenshot_path})",
-            unsafe_allow_html=True
-        )
+        with open(temp_file_path, "rb") as file:
+            st.markdown(
+                f"[📷 Download Screenshot](data:image/png;base64,{base64.b64encode(file.read()).decode()})",
+                unsafe_allow_html=True
+            )
 
         # Wait for the element to be rendered:
         element = driver.find_element(By.ID, "user_id")
