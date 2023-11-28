@@ -80,7 +80,7 @@ def run_selenium(logpath):
         element = driver.find_element(By.ID, "user_id")
         element_1 = element.text
 
-    return element_1
+    return element_1, screenshot_path
 
 
 if __name__ == "__main__":
