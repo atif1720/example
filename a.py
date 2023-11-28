@@ -62,7 +62,7 @@ def run_selenium(logpath):
         screenshot = driver.get_screenshot_as_png()
 
         # Create an image from the bytes
-        screenshot = Image.open(BytesIO(screenshot))
+         image = Image.open(BytesIO(screenshot))
 
         # Save the image to a file
         temp_file_path = "temp_screenshot.png"
@@ -73,11 +73,10 @@ def run_selenium(logpath):
         st.image(screenshot, caption="Screenshot", use_column_width=True)
 
         # Provide a download link/button for the screenshot
-        with open(temp_file_path, "rb") as file:
-            st.markdown(
-                f"[📷 Download Screenshot](data:image/png;base64,{base64.b64encode(file.read()).decode()})",
-                unsafe_allow_html=True
-            )
+        st.markdown(
+            f"[📷 Download Screenshot]({screenshot_path})",
+            unsafe_allow_html=True
+        )
 
         # Wait for the element to be rendered:
         element = driver.find_element(By.ID, "user_id")
